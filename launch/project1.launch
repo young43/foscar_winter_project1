@@ -8,7 +8,7 @@
     <param name="io_method" value="mmap"/>
   </node>
   
-  <node name="foscar_project" pkg="foscar_project" type="project_1.py" output="screen" />
+  <node name="foscar_project" pkg="foscar_winter_project1" type="project_1.py" output="screen" />
   <node name="turtlesim_node" pkg="turtlesim" type="turtlesim_node" />
   
 </launch>
