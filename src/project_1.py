@@ -24,7 +24,6 @@ class Turtle:
 
         self.pose = Pose()
         self.goal_pose = Pose()
-        self.rate = rospy.Rate(10)
 
     def control_msg_publish(self, linear_x, angular_z):
         msg = Twist()
@@ -47,14 +46,8 @@ class Turtle:
         return np.sqrt(pow((self.goal_pose.x - self.pose.x), 2) +
                     pow((self.goal_pose.y - self.pose.y), 2))
 
-    def linear_vel(self, constant=2):
-        return constant * self.euclidean_distance()
-
     def steering_angle(self):
         return math.atan2(self.goal_pose.y - self.pose.y, self.goal_pose.x - self.pose.x)
-
-    def angular_vel(self, constant=2):
-        return (self.steering_angle() - self.pose.theta)
 
     def set_goal_pose(self, goal_pose):
         self.goal_pose.x = goal_pose[0]
