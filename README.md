@@ -3,7 +3,13 @@
 
 
 ## 프로젝트 소개
-- ros의
+- 웹캠을 통해 이미지를 받아온다.
+- 이미지를 9등분으로 나누고 특정 색상(green)을 검출한 뒤, 그 위치 좌표를 추출한다.
+- 현재 거북이가 있는 좌표에서 특정 색상이 존재하는 좌표로 이동시킨다. (publish)
+  - angular 속도 설정
+    - atan2(목표 좌표 - 현재좌표) 값보다 현재 theta가 크면 1
+    - 현재 theta보다 작으면 -1
+  - linear 속도는 3으로 고정
 
 ## 실행 방법
 `roslaunch foscar_winter_project1 project1.launch`
