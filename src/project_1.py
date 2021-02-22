@@ -54,14 +54,12 @@ class Turtle:
         self.goal_pose.y = goal_pose[1]
 
     def move2goal(self):
-        distance_tolerance = 0.5
-        vel_msg = Twist()
+        distance_tolerance = 0.3
 
         # rotation 각도 미리설정
         if self.steering_angle() > self.pose.theta:
             while self.steering_angle() > self.pose.theta:
                 self.control_msg_publish(0, 1)
-                self.velocity_publisher.publish(vel_msg)
         else:
             while self.steering_angle() < self.pose.theta:
                 self.control_msg_publish(0, -1)
@@ -99,7 +97,7 @@ def get_green(img):
     ]
 
     max_element = None
-    max_value = 10000
+    max_value = 5000
 
     for region in get_green.ROI:
         roi_img = img[region[0][0]:region[1][0], region[0][1]:region[1][1]]
@@ -119,7 +117,7 @@ if __name__ == "__main__":
     rospy.init_node("foscar_project")
     rospy.Subscriber("/usb_cam/image_raw", Image, image_callback)
 
-    time.sleep(1)
+    time.sleep(3)
 
     turtle = Turtle()
     tutlesim_window = np.array([11, 11], dtype=float)
@@ -134,9 +132,9 @@ if __name__ == "__main__":
 
         # 이미지 hsv 변환해서 저장하기
         hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-        lower_green = np.array([40, 40, 40])
-        upper_green = np.array([70, 255, 255])
-        mask = cv2.inRange(hsv, lower_green, upper_green)
+        lower = np.array([40, 40, 40])
+        upper = np.array([70, 255, 255])
+        mask = cv2.inRange(hsv, lower, upper)
         res = cv2.bitwise_and(img, img, mask=mask)
 
         coord = get_green(mask)
